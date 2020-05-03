@@ -85,6 +85,24 @@ class _MyHomePageState extends State<MyHomePage> {
       title: 'Spotify',
       amount: 163.53,
       date: DateTime.now(),
+    ),
+    Transaction(
+      id: DateTime.now().toString(),
+      title: 'OnePlus',
+      amount: 799.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: DateTime.now().toString(),
+      title: 'Netflix',
+      amount: 50.53,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: DateTime.now().toString(),
+      title: 'Spotify',
+      amount: 163.53,
+      date: DateTime.now(),
     )
   ];
 
@@ -133,30 +151,44 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Expense Planner',
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.add,
-            ),
-            onPressed: () => _startAddNewTransaction(context),
-          ),
-        ],
+    final appBar = AppBar(
+      title: Text(
+        'Expense Planner',
       ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.add,
+          ),
+          onPressed: () => _startAddNewTransaction(context),
+        ),
+      ],
+    );
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(
-              _recentTransactions,
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+              child: Chart(
+                _recentTransactions,
+              ),
             ),
-            TransactionList(
-              _userTransactions,
-              _deleteTransaction,
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.7,
+              child: TransactionList(
+                _userTransactions,
+                _deleteTransaction,
+              ),
             ),
           ],
         ),
