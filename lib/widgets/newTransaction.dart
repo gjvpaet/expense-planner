@@ -1,8 +1,10 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
+
+import './adaptiveFlatButton.dart';
+import './adaptiveTextField.dart';
+import './adaptiveRaisedButton.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -58,13 +60,6 @@ class _NewTransactionState extends State<NewTransaction> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
 
-    final buttonChild = Text(
-      'Choose Date',
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    );
-
     return SingleChildScrollView(
       child: Card(
         elevation: 5,
@@ -78,30 +73,18 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
-              Platform.isIOS
-                  ? CupertinoTextField(
-                      placeholder: 'Title',
-                      controller: _titleController,
-                      onSubmitted: (_) => _submitData(),
-                    )
-                  : TextField(
-                      decoration: InputDecoration(labelText: 'Title'),
-                      controller: _titleController,
-                      onSubmitted: (_) => _submitData(),
-                    ),
-              Platform.isIOS
-                  ? CupertinoTextField(
-                      placeholder: 'Amount',
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      onSubmitted: (_) => _submitData(),
-                    )
-                  : TextField(
-                      decoration: InputDecoration(labelText: 'Amount'),
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      onSubmitted: (_) => _submitData(),
-                    ),
+              AdaptiveTextField(
+                'Title',
+                _titleController,
+                _submitData,
+                TextInputType.text,
+              ),
+              AdaptiveTextField(
+                'Amount',
+                _amountController,
+                _submitData,
+                TextInputType.number,
+              ),
               Container(
                 height: 70,
                 child: Row(
@@ -113,35 +96,17 @@ class _NewTransactionState extends State<NewTransaction> {
                             : 'Picked Date: ${DateFormat.yMd().format(_selectedDate)}',
                       ),
                     ),
-                    Platform.isIOS
-                        ? CupertinoButton(
-                            child: buttonChild,
-                            onPressed: _presentDatePicker,
-                          )
-                        : FlatButton(
-                            textColor: Theme.of(context).primaryColor,
-                            child: buttonChild,
-                            onPressed: _presentDatePicker,
-                          ),
+                    AdaptiveFlatButton(
+                      'Choose Date',
+                      _presentDatePicker,
+                    ),
                   ],
                 ),
               ),
-              Platform.isIOS
-                  ? CupertinoButton(
-                      child: Text(
-                        'Add transaction',
-                      ),
-                      color: Theme.of(context).primaryColor,
-                      onPressed: _submitData,
-                    )
-                  : RaisedButton(
-                      child: Text(
-                        'Add Transaction',
-                      ),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Theme.of(context).textTheme.button.color,
-                      onPressed: _submitData,
-                    ),
+              AdaptiveRaisedButton(
+                'Add Transaction',
+                _submitData,
+              ),
             ],
           ),
         ),
