@@ -214,6 +214,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Text(
                     'Show Chart',
+                    style: Theme.of(context).textTheme.title,
                   ),
                   Switch.adaptive(
                     activeColor: Theme.of(context).accentColor,
