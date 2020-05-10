@@ -11,6 +11,7 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('build() TransactionList');
     final mediaQuery = MediaQuery.of(context);
 
     return transactions.isEmpty
