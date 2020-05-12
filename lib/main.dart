@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 import './widgets/newTransaction.dart';
 import './widgets/adaptivePageBody.dart';
+import './widgets/adaptiveScaffold.dart';
 
 import './models/transaction.dart';
 
@@ -196,24 +197,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
-    return Platform.isIOS
-        ? CupertinoPageScaffold(
-            child: pageBody,
-            navigationBar: appBar,
-          )
-        : Scaffold(
-            appBar: appBar,
-            body: pageBody,
-            floatingActionButton: Platform.isIOS
-                ? Container()
-                : FloatingActionButton(
-                    child: Icon(
-                      Icons.add,
-                    ),
-                    onPressed: () => _startAddNewTransaction(context),
-                  ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
-          );
+    return AdaptiveScaffold(pageBody, appBar, _startAddNewTransaction);
   }
 }
